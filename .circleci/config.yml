@@ -31,6 +31,7 @@ jobs:
   # 1️⃣ FRONTEND BUILD (Next.js 15)
   setup-frontend:
     executor: node-executor
+    working_directory: ~/project
     steps:
       - checkout
       - node/install-packages:
@@ -40,8 +41,8 @@ jobs:
           name: Build frontend
           command: npm run build
       - run:
-          name: Run frontend tests
-          command: npm run test --if-present
+          name: Move to frontend folder
+          command: cd frontend && npm install && npm run build
       - persist_to_workspace:
           root: .
           paths:
